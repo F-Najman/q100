@@ -7,7 +7,7 @@ load "pullbacks.m";
 X,_,c,_,_:=eqs_quos(82,[[41]]);
 C:=c[1,1];
 assert Genus(C) eq 3;
-J:=Jacobian(C);
+pts:=PointSearch(C,10);
 assert #pts eq 6; // there are 4 rational cusps, so there are 2 non-cuspidal points
 j := jmap(X,82); //this takes a while
 
@@ -63,7 +63,45 @@ f:=u^4 - 2*u^2*v^2 - 4*u^2*v*z - 4*u^2*z^2 + v^4 -
     12*v^3*z + 4*v^2*z^2 + 32*v*z^3;
 data:=coleman_data(f,3,10);
 Qpoints:=Q_points(data,10^4);
-assert #Qpoints eq 6; //this proves the claim.
+assert #Qpoints eq 6; 
+L, v := effective_chabauty(data : Qpoints := Qpoints, e := 40);
+
+//printf "L = %o\nQ-points = %o\nv = %o\n", L, Qpoints, v;
+//uncomment the previous line to get a bit more info
+//about annihilating differentials and their zeroes (candidate points)
+
+if #L eq #Qpoints then
+  printf "found all %o Q-points!\n", #Qpoints;
+else
+  printf "one has to exclude additional %o points\n", #L - #Qpoints;
+end if;
+
+
+//Assuming that the Q-rational points found generate a finite index subgroup of the Jacobian of X_0(82)/w41,
+// we have found all the points. Let's check that. 
+
+
+X3 := ChangeRing(C, GF(3));
+assert IsNonsingular(X3);
+PicX3, phi3, psi3 := ClassGroup(X3);
+
+X5 := ChangeRing(C, GF(5));
+assert IsNonsingular(X5);
+PicX5, phi5, psi5 := ClassGroup(X5);
+
+pseq1 := [2,0,1];
+pseq2 := [0,0,1];
+
+d1_mod3 := psi3(Place(X3 ! pseq1) - Place(X3 ! pseq2));
+d1_mod5 := psi5(Place(X5 ! pseq1) - Place(X5 ! pseq2));
+
+// If d1 were a torsion point then it would have the same order mod 3 and mod 5.
+assert Order(d1_mod3) ne Order(d1_mod5); // So d1 has infinite order
+
+// This shows that we have found all the rational points on X_0(84)/w42
+
+
+
 
 // We conclude that all the pullbacks are CM. We need to check the multiplicities of all CM curves that appear, in theory there could be more points than the ones that we already found. 
 

@@ -51,7 +51,48 @@ data:=coleman_data(f,5,10);
 Qpoints:=Q_points(data,10^4);
 assert #Qpoints eq 3;
 
+
+L, v := effective_chabauty(data : Qpoints := Qpoints, e := 40);
+
+//printf "L = %o\nQ-points = %o\nv = %o\n", L, Qpoints, v;
+//uncomment the previous line to get a bit more info
+//about annihilating differentials and their zeroes (candidate points)
+
+if #L eq #Qpoints then
+  printf "found all %o Q-points!\n", #Qpoints;
+else
+  printf "one has to exclude additional %o points\n", #L - #Qpoints;
+end if;
+
+//Assuming that the Q-rational points found generate a finite index subgroup of the Jacobian of X_0(84)/w42,
+// we have found all the points. Let's check that. 
+
+X5 := ChangeRing(C, GF(5));
+assert IsNonsingular(X5);
+PicX5, phi5, psi5 := ClassGroup(X5);
+
+X13 := ChangeRing(C, GF(13));
+assert IsNonsingular(X13);
+PicX13, phi13, psi13 := ClassGroup(X13);
+
+
+pseq1 := [0,-1,1];
+pseq2 := [1,1,0];
+pseq3 := [-1,1,0];
+
+
+d1_mod5 := psi5(Place(X5 ! pseq3) - Place(X5 ! pseq1));
+d1_mod13 := psi13(Place(X13 ! pseq3) - Place(X13 ! pseq1));
+
+// If d1 were a torsion point then it would have the same order mod 7 and mod 5.
+assert Order(d1_mod13) ne Order(d1_mod5); // So d1 has infinite order
+
+// This shows that we have found all the rational points on X_0(99)/w11
+
 //this proves that X_0(99)/w_11 has 3 rational points 
+
+
+
 
 // We can now conclude that the only possible quadratic points are the CM  points, pullbacks of rational points (which we've seen are CM), and possibly pullbacks of exceptional points. 
 
