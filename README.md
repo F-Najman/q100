@@ -1,1 +1,1 @@
-This folder contains the Magma files used in the paper "Quadratic points on modular curves X_0(N) for N<=100" by F. Najman and I. Novak.   
+This folder contains the Magma files used in the paper "Quadratic points on modular curves X_0(N) for N<=100" by F. Najman and I. Novak. The code to compute the quadratic points on X_0(N) is contained in the file named N.m. 
