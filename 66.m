@@ -27,7 +27,7 @@ assert #CMpts eq 0;
 // We know from results of Clark, Genao, Pollack and Saia that there are no quadratic points with j=-32768, but we do a sanity check;
 
 
-//This completes the P^-1 parametrized points on X_0(33). It remains to chek that the exceptional points quadratic on X_0(33) do not lift to quadratic points on X_0(66).
+//This completes the P^1 parametrized points on X_0(33). It remains to chek that the exceptional points quadratic on X_0(33) do not lift to quadratic points on X_0(66).
 
 d:=-2;
 K<w>:=QuadraticField(d);
