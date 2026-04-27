@@ -3,11 +3,11 @@
 
 
 //We apply Corollary 3.3. from the paper. The values in question are: n=31, d=31, m_2=1, m_1=3. 
-//We need to just find the rational points on the genus 5 curve X_0(93)/w_{31}. The curve X_0(93)* is a genus 2 curve, whose Jacobian has rank 2. 
+//We just need to find the rational points on the genus 5 curve X_0(93)/w_{31}. The curve X_0(93)* is a genus 2 curve, whose Jacobian has rank 2. 
 // The rational points on this curve were determined in:
 // Adžaga, Chidambaram, Keller, Padurariu, Rational points on hyperelliptic Atkin-Lehner quotients of modular curves and their coverings, 2022.
-// To get a quadratic point on X_0(93), it is necessary (but not sufficient) that the j-invariant of the pts listed in the paper are defined over Q or a quadratic field.
-// This immediately rules out the non-CM points. The conclusion: the non-isolated non-CM points quadratic points on X_0(31) do not lift to quadratic points on X_0(93).
+// To get a quadratic point on X_0(93), it is necessary (but not sufficient) that the j-invariant of the points listed in the paper are defined over Q or a quadratic field.
+// This immediately rules out the non-CM points. Conclusion: the non-isolated non-CM quadratic points on X_0(31) do not lift to quadratic points on X_0(93).
 
 // We now check whether the exceptional points lift. We look at the exceptional points found in:
 // P. Bruin, F. Najman, Hyperelliptic modular curves X_0(n) and isogenies of elliptic curves over quadratic fields, LMS J. Comput. Math. 18 (2015) 578-602.
@@ -20,12 +20,11 @@ P2:=C1![1/2*(w-1), 1/2*(w+7)];
 _<x>:=PolynomialRing(K);
 j1:=jInvariant(P1,31);
 j2:=jInvariant(P2,31);
-//These points will give lift to a point on X_0(93) if and only if the corresponding curve has a 3-isogeny. This is true if and only if the modular polynomail evaluated with 1 variable 
-// at the j-invariant has a root over K.
+//These points will lift to a point on X_0(93) if and only if the corresponding curve has a 3-isogeny. This is true if and only if the modular polynomial evaluated with one variable specialized to the j-invariant has a root over K.
 p:=ChangeRing(ClassicalModularPolynomial(3), K);
 assert IsIrreducible(Evaluate(p,[x,j1]));
 assert IsIrreducible(Evaluate(p,[x,j2]));
-//This proves that non-isolated non-CM points quadratic points on X_0(31) do not lift to quadratic points on X_0(93).
+//This proves that non-isolated non-CM quadratic points on X_0(31) do not lift to quadratic points on X_0(93).
 
 //Now from: https://github.com/fsaia/least-cm-degree/blob/master/Least%20Degrees/X0/dcm_list_all_min_orders_X0_10k.m we see that the j-invariants that give quadratic CM points on X_0(93) are:
 //[ 0, 54000, -12288000, -32768 ]
@@ -50,6 +49,5 @@ end for;
 -12288000 2
 -32768 4
 */
-
 
 
