@@ -7,9 +7,9 @@
 // The rational points on this curve were determined in:
 // Adžaga, Chidambaram, Keller, Padurariu, Rational points on hyperelliptic Atkin-Lehner quotients of modular curves and their coverings, 2022.
 // To get a quadratic point on X_0(93), it is necessary (but not sufficient) that the j-invariant of the points listed in the paper are defined over Q or a quadratic field.
-// This immediately rules out the non-CM points. Conclusion: the non-isolated non-CM quadratic points on X_0(31) do not lift to quadratic points on X_0(93).
+// This immediately rules out the non-CM points. Conclusion: the P^1-parametrized non-CM quadratic points on X_0(31) do not lift to quadratic points on X_0(93).
 
-// We now check whether the exceptional points lift. We look at the exceptional points found in:
+// We now check whether the P^1-isolated points lift. We look at the exceptional points found in:
 // P. Bruin, F. Najman, Hyperelliptic modular curves X_0(n) and isogenies of elliptic curves over quadratic fields, LMS J. Comput. Math. 18 (2015) 578-602.
 
 C:=SmallModularCurve(31);
@@ -24,7 +24,7 @@ j2:=jInvariant(P2,31);
 p:=ChangeRing(ClassicalModularPolynomial(3), K);
 assert IsIrreducible(Evaluate(p,[x,j1]));
 assert IsIrreducible(Evaluate(p,[x,j2]));
-//This proves that non-isolated non-CM quadratic points on X_0(31) do not lift to quadratic points on X_0(93).
+//This proves that P^1-isolated non-CM quadratic points on X_0(31) do not lift to quadratic points on X_0(93).
 
 //Now from: https://github.com/fsaia/least-cm-degree/blob/master/Least%20Degrees/X0/dcm_list_all_min_orders_X0_10k.m we see that the j-invariants that give quadratic CM points on X_0(93) are:
 //[ 0, 54000, -12288000, -32768 ]
